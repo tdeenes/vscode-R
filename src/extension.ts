@@ -113,7 +113,9 @@ export async function activate(context: ExtensionContext): Promise<RExtension> {
         rHelpPanel.goForward();
     }));
 
-
+    context.subscriptions.push(commands.registerCommand('r.helpPanel.find', () =>{
+      rHelpPanel.findInTopic();
+  }));
 
 
     // Use the console to output diagnostic information (console.log) and errors (console.error)

@@ -339,6 +339,14 @@ export class HelpPanel implements api.HelpPanel {
 		}
 
 		return this.showHelpFile(helpFile);
+  }
+  
+  // search function, similar to typing `?? ...` in R
+	public async findInTopic(): Promise<boolean>{
+    return this.getWebview().postMessage({
+      command: 'find', 
+      enable: true
+    });
 	}
 
 	// shows help for request path as used by R's internal help server
@@ -373,7 +381,7 @@ export class HelpPanel implements api.HelpPanel {
 		// modify html
 		helpFile = this.pimpMyHelp(helpFile);
 
-		// actually show the hel page
+		// actually show the help page
 		webview.html = helpFile.html;
 
 		// update history to enable back/forward
@@ -386,8 +394,7 @@ export class HelpPanel implements api.HelpPanel {
 		}
 		this.currentEntry = {
 			helpFile: helpFile
-		};
-
+    };
 		return true;
 	}
 
@@ -396,8 +403,8 @@ export class HelpPanel implements api.HelpPanel {
 		// create webview if necessary
 		if(!this.panel){
 			const webViewOptions: WebviewOptions = {
-				enableScripts: true,
-			};
+				enableScripts: true
+      };
 			this.panel = window.createWebviewPanel('rhelp', 'R Help', this.viewColumn, webViewOptions);
 
 			// virtual uris used to access local files
@@ -547,9 +554,11 @@ export class HelpPanel implements api.HelpPanel {
 				});
 			}
 
-			// append stylesheet and javascript file
-			$('body').append(`\n<link rel="stylesheet" href="${this.webviewStyleUri}"></link>`);
-			$('body').append(`\n<script src=${this.webviewScriptUri}></script>`);
+      // append stylesheet and javascript file
+      //TODO: load local resource
+      $('head').append('\n<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>');
+      $('body').append(`\n<link rel="stylesheet" href="${this.webviewStyleUri}"></link>`);
+      $('body').append(`\n<script src=${this.webviewScriptUri}></script>`);
 
 			// flag modified body (improve performance when going back/forth between pages)
 			helpFile.isModified = true;

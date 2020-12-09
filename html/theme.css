@@ -108,3 +108,30 @@ img {
 a ~ div.header {
     display: none;
 }
+
+/*
+Find in active help topic
+*/
+mark {
+  background: rgba(255, 255, 93, 0.479);
+}
+
+mark.current {
+  background: rgb(255, 189, 66);
+}
+
+.find-header {
+  padding: 3px;
+  width: 100%;
+  background: rgb(80, 80, 80);
+  position: fixed;
+  top: 0;
+  right: 0;
+  max-width: 300px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.find-header input {
+  width: 100%;
+}

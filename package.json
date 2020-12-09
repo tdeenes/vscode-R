@@ -59,7 +59,8 @@
     "onCommand:r.runCommand",
     "onCommand:r.showHelp",
     "onCommand:r.helpPanel.back",
-    "onCommand:r.helpPanel.forward"
+    "onCommand:r.helpPanel.forward",
+    "onCommand:r.helpPanel.find"
   ],
   "main": "./dist/extension",
   "contributes": {
@@ -288,6 +289,11 @@
         "command": "r.helpPanel.forward",
         "title": "R Help Panel: Go Forward",
         "icon": "$(arrow-right)"
+      },
+      {
+        "command": "r.helpPanel.find",
+        "title": "R Help Panel: Find in Topic",
+        "icon": "$(search)"
       },
       {
         "title": "Create R terminal",
@@ -579,6 +585,11 @@
         },
         {
           "command": "r.helpPanel.forward",
+          "when": "resourceScheme =~ /webview/ && r.helpPanel.active",
+          "group": "navigation"
+        },
+        {
+          "command": "r.helpPanel.find",
           "when": "resourceScheme =~ /webview/ && r.helpPanel.active",
           "group": "navigation"
         }
